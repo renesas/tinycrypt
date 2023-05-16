@@ -30,8 +30,7 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _GCM_MODE_C_
-#define _GCM_MODE_C_
+
 
 #include <tinycrypt/gcm_mode.h>
 #include <tinycrypt/constants.h>
@@ -39,6 +38,7 @@
 
 #include <stdio.h>
 
+#ifndef GCM_MODE_ENABLED
 #define TC_PARAMETER_NOT_USED(p)    (void) ((p))
 
 int tc_gcm_encryption_init(const TCAesKeySched_t sched, uint8_t * iv, uint8_t * aad, uint32_t additional_len)

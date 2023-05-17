@@ -38,7 +38,7 @@
 
 #include <stdio.h>
 
-#ifndef RM_TINICRYPT_PORT_GCM_MODE_ENABLED
+#ifdef RM_TINICRYPT_PORT_GCM_MODE_ENABLED
 #define TC_PARAMETER_NOT_USED(p)    (void) ((p))
 
 int tc_gcm_encryption_init(const TCAesKeySched_t sched, uint8_t * iv, uint8_t * aad, uint32_t additional_len)

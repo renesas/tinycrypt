@@ -40,6 +40,24 @@
 
 #ifdef RM_TINICRYPT_PORT_GCM_MODE_USE_TINYCRYPT_LIB
 #define TC_PARAMETER_NOT_USED(p)    (void) ((p))
+int tc_gcm_config(TCGcmMode_t context, TCAesKeySched_t sched, uint8_t tlen)
+{
+
+	/* input sanity check: */
+	if (context == (TCGcmMode_t) 0 || sched == (TCAesKeySched_t) 0)
+	{
+		return TC_CRYPTO_FAIL;
+	}
+    else if ((tlen*8 != 128) && (tlen*8 != 120) && (tlen*8 != 112) && (tlen*8 != 104) && (tlen*8 != 96) && (tlen*8 != 64) && (tlen*8 != 32))
+	{
+		return TC_CRYPTO_FAIL; /* The allowed mac sizes are: 128, 120, 112, 104, 96.*/
+	}
+
+	context->tlen = tlen;
+	context->sched = sched;
+
+	return TC_CRYPTO_SUCCESS;
+}
 
 int tc_gcm_encryption_init(const TCAesKeySched_t sched, uint8_t * iv, uint8_t * aad, uint32_t additional_len)
 {

@@ -178,4 +178,75 @@ int tc_gcm_decryption_final(const TCAesKeySched_t sched,
                             uint8_t               tag_len,
                             uint8_t             * output);
 
+typedef struct tc_gcm_mode_struct {
+	TCAesKeySched_t sched; /* AES key schedule */
+	unsigned int tlen; /* tag length in bytes (parameter t in SP-800 38D) */
+} *TCGcmMode_t;
+
+/**
+ * @brief GCM configuration procedure
+ * @return returns TC_CRYPTO_SUCCESS (1)
+ *          returns TC_CRYPTO_FAIL (0) if:
+ *                context == NULL or
+ *                sched == NULL or
+ *                tlen != {128, 120, 112, 104, 96, 64, 32}
+ * @param context -- GCM state
+ * @param sched IN -- AES key schedule
+ * @param tlen -- tag length in bytes (parameter t in SP-800 38D)
+ */
+int tc_gcm_config(TCGcmMode_t context, TCAesKeySched_t sched, uint8_t tlen);
+
+/**
+ * @brief GCM tag generation and encryption procedure
+ * @return returns TC_CRYPTO_SUCCESS (1)
+ *         returns TC_CRYPTO_FAIL (0) if:
+ *                out == NULL or
+ *                c == NULL or
+ *                ((plen < 0) and (payload == NULL)) or
+ *                ((alen < 0) and (aad == NULL))
+ *
+ * @param out OUT -- encrypted data
+ * @param olen IN -- output length in bytes
+ * @param tag OUT - pointer to TAG buffer
+ * @param aad IN -- associated data
+ * @param alen IN -- associated data length in bytes
+ * @param iv IN -- Pointer to Initial Vector
+ * @param ivlen IN -- Length of Initial Vector
+ * @param payload IN -- payload
+ * @param plen IN -- payload length in bytes
+ * @param g IN -- GCM state
+ */
+int tc_gcm_generation_encryption(uint8_t *out, unsigned int olen,
+                 uint8_t *tag,
+				 const uint8_t *aad,
+				 unsigned int alen, const uint8_t *iv,
+				 unsigned int ivlen, const uint8_t *payload,
+				 unsigned int plen, TCGcmMode_t g);
+
+/**
+ * @brief GCM decryption and tag verification procedure
+ * @return returns TC_CRYPTO_SUCCESS (1)
+ *         returns TC_CRYPTO_FAIL (0) if:
+ *                out == NULL or
+ *                c == NULL or
+ *                ((plen < 0) and (payload == NULL)) or
+ *                ((alen < 0) and (aad == NULL))
+ *
+ * @param out OUT -- encrypted data
+ * @param olen IN -- output length in bytes
+ * @param tag IN - pointer to TAG buffer
+ * @param aad IN -- associated data
+ * @param alen IN -- associated data length in bytes
+ * @param iv IN -- Pointer to Initial Vector
+ * @param ivlen IN -- Length of Initial Vector
+ * @param payload IN -- payload
+ * @param plen IN -- payload length in bytes
+ * @param g IN -- GCM state
+ */
+int tc_gcm_decryption_verification(uint8_t *out, unsigned int olen,
+                   uint8_t *tag,
+				   const uint8_t *aad,
+				   unsigned int alen, const uint8_t *iv,
+				   unsigned int ivlen,const uint8_t *payload,
+				   unsigned int plen, TCGcmMode_t g);
 #endif /* __TC_GCM_MODE_H__ */

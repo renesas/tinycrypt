@@ -35,28 +35,38 @@
 #include <tinycrypt/gcm_mode.h>
 #include <tinycrypt/constants.h>
 #include <tinycrypt/utils.h>
-
 #include <stdio.h>
 
 #ifdef RM_TINICRYPT_PORT_GCM_MODE_USE_TINYCRYPT_LIB
 #define TC_PARAMETER_NOT_USED(p)    (void) ((p))
+#define TC_GCM_T_LEN_128_IN_BYTE     16
+#define TC_GCM_T_LEN_120_IN_BYTE     15
+#define TC_GCM_T_LEN_112_IN_BYTE     14
+#define TC_GCM_T_LEN_104_IN_BYTE     13
+#define TC_GCM_T_LEN_96_IN_BYTE      12
+#define TC_GCM_T_LEN_64_IN_BYTE      8
+#define TC_GCM_T_LEN_32_IN_BYTE      4
+
 int tc_gcm_config(TCGcmMode_t context, TCAesKeySched_t sched, uint8_t tlen)
 {
-
 	/* input sanity check: */
 	if (context == (TCGcmMode_t) 0 || sched == (TCAesKeySched_t) 0)
 	{
 		return TC_CRYPTO_FAIL;
 	}
-    else if ((tlen*8 != 128) && (tlen*8 != 120) && (tlen*8 != 112) && (tlen*8 != 104) && (tlen*8 != 96) && (tlen*8 != 64) && (tlen*8 != 32))
+    else if ((tlen != TC_GCM_T_LEN_128_IN_BYTE) && (tlen != TC_GCM_T_LEN_120_IN_BYTE) &&
+             (tlen != TC_GCM_T_LEN_112_IN_BYTE) && (tlen != TC_GCM_T_LEN_104_IN_BYTE) &&
+             (tlen != TC_GCM_T_LEN_96_IN_BYTE) &&
+             (tlen != TC_GCM_T_LEN_64_IN_BYTE) && (tlen != TC_GCM_T_LEN_32_IN_BYTE))
 	{
-		return TC_CRYPTO_FAIL; /* The allowed mac sizes are: 128, 120, 112, 104, 96.*/
+		return TC_CRYPTO_FAIL; /* The allowed mac sizes are: 128, 120, 112, 104, 96, 64, 32*/
 	}
-
-	context->tlen = tlen;
-	context->sched = sched;
-
-	return TC_CRYPTO_SUCCESS;
+	else
+	{
+		context->tlen = tlen;
+		context->sched = sched;
+		return TC_CRYPTO_SUCCESS;
+	}
 }
 
 int tc_gcm_encryption_init(const TCAesKeySched_t sched, uint8_t * iv, uint8_t * aad, uint32_t additional_len)

@@ -41,17 +41,11 @@
  *
  *  Requires: AES-128, AES-192, AES-256
  *
- *  Usage:    1) call tc_gcm_encryption_init to initialize the GCM mode encryption.
+ *  Usage:    1) call tc_gcm_config to configure.
  *
- *            2) call tc_gcm_encryption_update to updates data for GCM encryption.
+ *            2) call tc_gcm_generation_encryption to encrypt data and generate tag.
  *
- *            3) call tc_gcm_encryption_final to calculates TAG for GCM mode.
- * 
- *            4) call tc_gcm_decryption_init to initialize the GCM mode decryption.
- *
- *            5) call tc_gcm_decryption_update to updates data for GCM mode decryption.
- *
- *            6) call tc_gcm_decryption_final to verifies the TAG for GCM mode decryption.
+ *            3) call tc_gcm_decryption_verification to decrypt data and verify tag.
  */
 
 #ifndef __TC_GCM_MODE_H__
@@ -59,7 +53,6 @@
 
 #include <tinycrypt/aes.h>
 #include <stddef.h>
-#include "rm_tinycrypt_port_cfg.h"
 
 #ifdef __cplusplus
 extern "C" {

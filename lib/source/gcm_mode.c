@@ -37,7 +37,7 @@
 #include <tinycrypt/utils.h>
 #include <stdio.h>
 
-#ifdef RM_TINICRYPT_PORT_GCM_MODE_USE_TINYCRYPT_LIB
+ #if (RM_TINYCRYPT_PORT_GCM_HW_ACCELERATION_ENABLED == 0)
 #define TC_PARAMETER_NOT_USED(p)    (void) ((p))
 #define TC_GCM_T_LEN_128_IN_BYTE     16
 #define TC_GCM_T_LEN_120_IN_BYTE     15
@@ -140,4 +140,52 @@ int tc_gcm_decryption_final(const TCAesKeySched_t sched,
 	TC_PARAMETER_NOT_USED(*output);
 	return TC_CRYPTO_FAIL;
 }
-#endif /* defined RM_TINICRYPT_PORT_GCM_MODE_USE_TINYCRYPT_LIB */
+
+int tc_gcm_generation_encryption (uint8_t       * out,
+                                  unsigned int    olen,
+                                  uint8_t       * tag,
+                                  const uint8_t * aad,
+                                  unsigned int    alen,
+                                  const uint8_t * iv,
+                                  unsigned int    ivlen,
+                                  const uint8_t * payload,
+                                  unsigned int    plen,
+                                  TCGcmMode_t     g)
+{
+	TC_PARAMETER_NOT_USED(*out);
+	TC_PARAMETER_NOT_USED(olen);
+	TC_PARAMETER_NOT_USED(*tag);
+	TC_PARAMETER_NOT_USED(*aad);
+	TC_PARAMETER_NOT_USED(alen);
+	TC_PARAMETER_NOT_USED(*iv);
+	TC_PARAMETER_NOT_USED(ivlen);
+	TC_PARAMETER_NOT_USED(*payload);
+	TC_PARAMETER_NOT_USED(plen);
+	TC_PARAMETER_NOT_USED(g);
+	return TC_CRYPTO_FAIL;
+}
+
+int tc_gcm_decryption_verification (uint8_t       * out,
+                                    unsigned int    olen,
+                                    uint8_t       * tag,
+                                    const uint8_t * aad,
+                                    unsigned int    alen,
+                                    const uint8_t * iv,
+                                    unsigned int    ivlen,
+                                    const uint8_t * payload,
+                                    unsigned int    plen,
+                                    TCGcmMode_t     g)
+{
+	TC_PARAMETER_NOT_USED(*out);
+	TC_PARAMETER_NOT_USED(olen);
+	TC_PARAMETER_NOT_USED(*tag);
+	TC_PARAMETER_NOT_USED(*aad);
+	TC_PARAMETER_NOT_USED(alen);
+	TC_PARAMETER_NOT_USED(*iv);
+	TC_PARAMETER_NOT_USED(ivlen);
+	TC_PARAMETER_NOT_USED(*payload);
+	TC_PARAMETER_NOT_USED(plen);
+	TC_PARAMETER_NOT_USED(g);
+	return TC_CRYPTO_FAIL;
+}
+#endif

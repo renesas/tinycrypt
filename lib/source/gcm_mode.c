@@ -145,11 +145,11 @@ int tc_gcm_generation_encryption (uint8_t       * out,
                                   unsigned int    olen,
                                   uint8_t       * tag,
                                   const uint8_t * aad,
-                                  unsigned int    alen,
+                                  unsigned long long    alen,
                                   const uint8_t * iv,
-                                  unsigned int    ivlen,
+                                  unsigned long long    ivlen,
                                   const uint8_t * payload,
-                                  unsigned int    plen,
+                                  unsigned long long    plen,
                                   TCGcmMode_t     g)
 {
 	TC_PARAMETER_NOT_USED(*out);
@@ -169,11 +169,11 @@ int tc_gcm_decryption_verification (uint8_t       * out,
                                     unsigned int    olen,
                                     uint8_t       * tag,
                                     const uint8_t * aad,
-                                    unsigned int    alen,
+                                    unsigned long long    alen,
                                     const uint8_t * iv,
-                                    unsigned int    ivlen,
+                                    unsigned long long    ivlen,
                                     const uint8_t * payload,
-                                    unsigned int    plen,
+                                    unsigned long long    plen,
                                     TCGcmMode_t     g)
 {
 	TC_PARAMETER_NOT_USED(*out);

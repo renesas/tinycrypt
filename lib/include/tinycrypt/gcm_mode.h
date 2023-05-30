@@ -221,9 +221,9 @@ int tc_gcm_config(TCGcmMode_t context, TCAesKeySched_t sched, uint8_t tlen);
 int tc_gcm_generation_encryption(uint8_t *out, unsigned int olen,
                  uint8_t *tag,
 				 const uint8_t *aad,
-				 unsigned long long alen, const uint8_t *iv,
-				 unsigned long long ivlen, const uint8_t *payload,
-				 unsigned long long plen, TCGcmMode_t g);
+				 unsigned int alen, const uint8_t *iv,
+				 unsigned int ivlen, const uint8_t *payload,
+				 unsigned int plen, TCGcmMode_t g);
 
 /**
  * @brief GCM decryption and tag verification procedure
@@ -248,7 +248,7 @@ int tc_gcm_generation_encryption(uint8_t *out, unsigned int olen,
 int tc_gcm_decryption_verification(uint8_t *out, unsigned int olen,
                    uint8_t *tag,
 				   const uint8_t *aad,
-				   unsigned long long alen, const uint8_t *iv,
-				   unsigned long long ivlen,const uint8_t *payload,
-				   unsigned long long plen, TCGcmMode_t g);
+				   unsigned int alen, const uint8_t *iv,
+				   unsigned int ivlen,const uint8_t *payload,
+				   unsigned int plen, TCGcmMode_t g);
 #endif /* __TC_GCM_MODE_H__ */

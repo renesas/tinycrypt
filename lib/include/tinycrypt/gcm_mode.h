@@ -67,6 +67,11 @@ extern "C" {
 /* max message size in bytes: (2^39 - 2^8)/8 = 68719476704 */
 #define TC_GCM_PAYLOAD_MAX_BYTES 0xFFFFFFFE0
 
+typedef struct tc_gcm_mode_struct {
+	TCAesKeySched_t sched; /* AES key schedule */
+	unsigned int tlen; /* tag length in bytes (parameter t in SP-800 38D) */
+} *TCGcmMode_t;
+
 /**
  * @brief initialize the GCM mode encryption procedure
  * @return returns TC_CRYPTO_SUCCESS (1)
@@ -179,11 +184,6 @@ int tc_gcm_decryption_final(const TCAesKeySched_t sched,
                             uint8_t               input_len,
                             uint8_t               tag_len,
                             uint8_t             * output);
-
-typedef struct tc_gcm_mode_struct {
-	TCAesKeySched_t sched; /* AES key schedule */
-	unsigned int tlen; /* tag length in bytes (parameter t in SP-800 38D) */
-} *TCGcmMode_t;
 
 /**
  * @brief GCM configuration procedure

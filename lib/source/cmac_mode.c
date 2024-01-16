@@ -122,6 +122,35 @@ int tc_cmac_setup(TCCmacState_t s, const uint8_t *key, TCAesKeySched_t sched)
 	return TC_CRYPTO_SUCCESS;
 }
 
+int tc_cmac_setup_extended(TCCmacState_t s, const uint8_t *key, TCAesKeySched_t sched, unsigned int key_size)
+{
+
+	/* input sanity check: */
+	if (s == (TCCmacState_t) 0 ||
+	    key == (const uint8_t *) 0 ||
+		((key_size != TC_AES_192BIT_KEYLEN_BYTES) && (key_size != TC_AES_256BIT_KEYLEN_BYTES))) {
+		return TC_CRYPTO_FAIL;
+	}
+
+	/* put s into a known state */
+	_set(s, 0, sizeof(*s));
+	s->sched = sched;
+
+	/* configure the encryption key used by the underlying block cipher */
+	tc_aes_set_encrypt_key_extended(s->sched, key, key_size);
+
+	/* compute s->K1 and s->K2 from s->iv using s->keyid */
+	_set(s->iv, 0, TC_AES_BLOCK_SIZE);
+	tc_aes_encrypt(s->iv, s->iv, s->sched);
+	gf_double (s->K1, s->iv);
+	gf_double (s->K2, s->K1);
+
+	/* reset s->iv to 0 in case someone wants to compute now */
+	tc_cmac_init(s);
+
+	return TC_CRYPTO_SUCCESS;
+}
+
 int tc_cmac_erase(TCCmacState_t s)
 {
 	if (s == (TCCmacState_t) 0) {

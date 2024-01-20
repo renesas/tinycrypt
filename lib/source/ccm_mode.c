@@ -36,7 +36,7 @@
 #include "bsp_api.h"
 #include <stdio.h>
 
-#if (BSP_FEATURE_CRYPTO_AES_IP_VERSION != 2)
+#if (RM_TINYCRYPT_PORT_HW_ACCELERATION != 1)
 int tc_ccm_config(TCCcmMode_t c, TCAesKeySched_t sched, uint8_t *nonce,
 		  unsigned int nlen, unsigned int mlen)
 {

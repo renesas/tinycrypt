@@ -36,7 +36,7 @@
 #include "bsp_api.h"
 #include <stdio.h>
 
-#if (RM_TINYCRYPT_PORT_HW_ACCELERATION != 1)
+ #if (RM_TINYCRYPT_PORT_HW_ACCELERATION == 0)
 int tc_ccm_config(TCCcmMode_t c, TCAesKeySched_t sched, uint8_t *nonce,
 		  unsigned int nlen, unsigned int mlen)
 {

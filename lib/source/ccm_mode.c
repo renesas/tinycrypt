@@ -33,7 +33,6 @@
 #include <tinycrypt/ccm_mode.h>
 #include <tinycrypt/constants.h>
 #include <tinycrypt/utils.h>
-#include "bsp_api.h"
 #include <stdio.h>
 
  #if (RM_TINYCRYPT_PORT_HW_ACCELERATION == 0)
